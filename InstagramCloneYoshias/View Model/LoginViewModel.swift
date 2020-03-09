@@ -46,6 +46,8 @@ class LoginViewModel: LoginInstagramViewModelable {
         
     }
     
+    //MARK: - Private Method
+    
     private func loginByFacebook() {
         let loginManager = LoginManager()
         loginManager.logOut()
@@ -66,54 +68,4 @@ class LoginViewModel: LoginInstagramViewModelable {
                 }
         }
     }
-    
-//    private func getFBUserData() {
-//            //which if my function to get facebook user details
-//            //var idIgString: String = ""
-//            //var accessToken = AccessToken.current
-//        //self.instagramId.accept("17841401268594829")
-//
-//        if((AccessToken.current) != nil){
-//
-//            GraphRequest(graphPath: "me/accounts", parameters: ["fields": "instagram_business_account,id"]).start(completionHandler: { (connection, result, error) -> Void in
-//                if (error == nil){
-//
-//                    let dict = result as! [String : AnyObject]
-//                    print(result!)
-//                    print(dict)
-//                    let picutreDic = dict as NSDictionary
-//                    let data = picutreDic.object(forKey: "data") as! NSArray
-//                    let id = data.object(at: 1) as! NSDictionary
-//                    let id_ig = id.object(forKey: "instagram_business_account") as! NSDictionary
-//                    let idIgString = id_ig.object(forKey: "id") as! String
-////                    self.instagramIdData.accept(idIgString)
-////                     print(idIgString)
-//
-//                }
-//
-//                print(error?.localizedDescription as Any)
-//            })
-//
-////                GraphRequest(graphPath: "\(String(describing: idIgString))", parameters: ["fields": "username"]).start(completionHandler: { (connection, result, error) -> Void in
-////                    if (error == nil){
-////
-////                        let dict = result as! [String : AnyObject]
-////                        print(result!)
-////                        print(dict)
-////                        let username = dict as NSDictionary
-////                        let u = username.object(forKey: "username") as! String
-////                        //idIgString = id_ig.object(forKey: "id") as! String?
-////                        //self.emailLabel.text = u
-////                        print(u)
-////
-////                    }
-////
-////                    print(error?.localizedDescription as Any)
-////                })
-//
-//            }
-//        }
-    
-    
-    
 }

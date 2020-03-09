@@ -36,8 +36,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        }
         
         window = .init(frame: UIScreen.main.bounds)
+        //appCoordinator = .init(window: window)
         window?.makeKeyAndVisible()
         appCoordinator.start(with: window)
+       
         return true
     }
 }

@@ -11,7 +11,6 @@ import Moya
 
 enum GraphApiInstagramService {
     case getProfile(instagramId: String, accessToken: String)
-    case getMediaProfile(instagramId: String, accessToken: String)
     case getDetailMediaProfile(mediaId: String, accessToken: String)
     case getDummyData
 }
@@ -28,8 +27,6 @@ extension GraphApiInstagramService: TargetType {
             return "/v6.0/17871747100103711"
         case .getProfile(let instagramId, _):
             return "/v6.0/\(instagramId)"
-        case .getMediaProfile(let instagramId, _):
-            return "/v6.0/\(instagramId)/media"
         case .getDetailMediaProfile(let mediaId, _):
             return "/v6.0/\(mediaId)"
         }
@@ -37,7 +34,7 @@ extension GraphApiInstagramService: TargetType {
     
     var method: Moya.Method {
         switch self {
-        case .getProfile(_, _), .getMediaProfile(_, _), .getDetailMediaProfile(_, _), .getDummyData:
+        case .getProfile(_, _), .getDetailMediaProfile(_, _), .getDummyData:
             return .get
         }
     }
@@ -47,8 +44,6 @@ extension GraphApiInstagramService: TargetType {
         case .getDummyData:
             return "".data(using: .utf8)!
         case .getProfile(let instagramId, let accessToken):
-            return "\(instagramId),\(accessToken)".data(using: .utf8)!
-        case .getMediaProfile(let instagramId, let accessToken):
             return "\(instagramId),\(accessToken)".data(using: .utf8)!
         case .getDetailMediaProfile(let mediaId, let accessToken):
             return "\(mediaId),\(accessToken)".data(using: .utf8)!
@@ -60,9 +55,7 @@ extension GraphApiInstagramService: TargetType {
         case .getDummyData:
             return .requestParameters(parameters: ["fields" : "id,username,media_url", "access_token" : ""], encoding: URLEncoding.default)
         case .getProfile(_, let accessToken):
-            return .requestParameters(parameters: ["fields" : "followers_count,media_count,follows_count,biography,name,username,website,profile_picture_url", "access_token" : "\(accessToken)"], encoding: URLEncoding.default)
-        case .getMediaProfile(_, let accessToken):
-            return .requestParameters(parameters: ["fields" : "media_url", "access_token" : "\(accessToken)"], encoding: URLEncoding.default)
+            return .requestParameters(parameters: ["fields" : "followers_count,media_count,follows_count,biography,name,username,website,profile_picture_url,media{id,media_url}", "access_token" : "\(accessToken)"], encoding: URLEncoding.default)
         case .getDetailMediaProfile(_, let accessToken):
             return .requestParameters(parameters: ["fields" : "id,username,caption,comments_count,like_count,media_url,comments{id,username,text}", "access_token" : "\(accessToken)"], encoding: URLEncoding.default)
         }

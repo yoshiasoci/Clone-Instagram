@@ -18,6 +18,16 @@ struct ProfileData: Decodable {
     var media_count: Int
     var follows_count: Int
     var followers_count: Int
+    var media: ProfileMedia
+}
+
+struct ProfileMedia: Decodable {
+    var data: [ProfileMediaData]
+}
+
+struct ProfileMediaData: Decodable {
+    var id: String
+    var media_url: String
 }
 
 enum ProfileError: Error {

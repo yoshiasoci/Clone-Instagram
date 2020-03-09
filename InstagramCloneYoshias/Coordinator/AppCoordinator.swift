@@ -21,23 +21,30 @@ class AppCoordinator: Coordinator {
         if AccessToken.current?.tokenString == nil {
             showLogin(window)
         } else {
-            showTabbar(window)
+            showTabbar(window, accessToken: AccessToken.current!.tokenString as String)
         }
     }
     
     private func showLogin(_ window: UIWindow?) {
         loginCoordinator = .init()
         loginCoordinator?.succesLogin.subscribe { [weak self] _ in
-            self?.showTabbar(window)
+            self?.showTabbar(window, accessToken: AccessToken.current!.tokenString as String)
             self?.loginCoordinator = nil
         }.disposed(by: disposeBag)
         
         loginCoordinator?.start(with: window)
     }
     
-    private func showTabbar(_ window: UIWindow?) {
-        mainTabBarCoordinator = MainTabBarCoordinator()
-        mainTabBarCoordinator?.start(with: window)
+    private func showTabbar(_ window: UIWindow?, accessToken: String?) {
+        mainTabBarCoordinator = .init()
+        mainTabBarCoordinator?.logout.subscribe { [weak self] _ in
+            //self?.showLogin(window)
+            self?.start(with: window)
+            self?.mainTabBarCoordinator = nil
+        }.disposed(by: disposeBag)
+        
+        mainTabBarCoordinator?.start(with: window, accessToken: accessToken)
+        
     }
     
 }

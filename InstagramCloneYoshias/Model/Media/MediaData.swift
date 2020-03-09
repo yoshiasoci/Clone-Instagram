@@ -18,16 +18,6 @@ struct MediaData: Decodable {
     var comments: MediaCommentsData
 }
 
-//Media Data in Profile
-struct MediaDataUrl: Decodable {
-    var data: [MediaDataUrlDetail]
-}
-
-struct MediaDataUrlDetail: Decodable {
-    var id: String
-    var media_url: String
-}
-
 enum MediaError: Error {
     case parameterNotValid, unknown
 }

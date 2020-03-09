@@ -61,12 +61,7 @@ class ProfileViewController: UIViewController {
     
     //implementasi button
     @objc func logOut(){
-//        let loginManager = LoginManager()
-//        print(AccessToken.current?.tokenString as Any)
-//        loginManager.logOut()
-//        print(AccessToken.current?.tokenString as Any)
-        print("logout")
-        //present(searchController, animated: true, completion: nil)
+        self.viewModelProfile.logoutTapped.onNext(())
     }
     
     func bindData() {
@@ -120,7 +115,7 @@ class ProfileViewController: UIViewController {
         }.disposed(by: disposeBag)
         
         //binding cell tapable
-        self.mediaProfileCollectionView.rx.modelSelected(MediaDataUrlDetail.self)
+        self.mediaProfileCollectionView.rx.modelSelected(ProfileMediaData.self)
             .subscribe(onNext: { (model) in
                 print(model.id)
                 self.viewModelProfile.mediaId.accept(model.id)

@@ -23,6 +23,8 @@ protocol ProfileViewModelable {
     //MARK: input
     var cellTapped: PublishSubject<Void> { get }
     var mediaId: BehaviorRelay<String?> { get }
+    var logoutTapped: PublishSubject<Void> { get }
+    
     
     //MARK: output
     var photoProfileImage: BehaviorRelay<UIImage?> { get }
@@ -34,10 +36,9 @@ protocol ProfileViewModelable {
     var websiteProfileLabel: BehaviorRelay<String?> { get }
     
     //var mediaProfileCollectionView: BehaviorRelay<UICollectionView?> { get }
-    var mediaProfileCollectionView: BehaviorRelay<[MediaDataUrlDetail?]> { get }
-    
+    var mediaProfileCollectionView: BehaviorRelay<[ProfileMediaData?]> { get }
     var detailMediaSubscription: ((_ mediaId: String, _ accessToken: String, _ photoProfileImageUrl: String) -> Void)? { get set }
-    
+    var logoutSubscription: ((_ successLogout: Bool) -> Void)? { get set }
 }
 
 class ProfileViewModel: ProfileViewModelable, ProfilePopulateable {
@@ -48,6 +49,8 @@ class ProfileViewModel: ProfileViewModelable, ProfilePopulateable {
     
     var detailMediaSubscription: ((_ mediaId: String, _ accessToken: String, _ photoProfileImageUrl: String) -> Void)?
     var cellTapped = PublishSubject<Void>()
+    var logoutTapped = PublishSubject<Void>()
+    var logoutSubscription: ((_ successLogout: Bool) -> Void)?
     
     let photoProfileImage = BehaviorRelay<UIImage?>(value: UIImage(named: ""))
     let nameProfileLabel = BehaviorRelay<String?>(value: "")
@@ -57,24 +60,31 @@ class ProfileViewModel: ProfileViewModelable, ProfilePopulateable {
     let followingProfileCountLabel = BehaviorRelay<String?>(value: "")
     let websiteProfileLabel = BehaviorRelay<String?>(value: "")
     
-    var mediaProfileCollectionView = BehaviorRelay<[MediaDataUrlDetail?]>(value: [])
+    var mediaProfileCollectionView = BehaviorRelay<[ProfileMediaData?]>(value: [])
     
     let accessToken: String
     let pathIdInstagram: String
     let mediaId = BehaviorRelay<String?>(value: "")
     let photoProfileImageUrl = BehaviorRelay<String?>(value: "")
+    //let logout = BehaviorRelay<Bool?>(value: false)
     
     init(pathIdInstagram: String, accessToken: String) {
         self.pathIdInstagram = pathIdInstagram
         self.accessToken = accessToken
         //SVProgressHUD.show()
         getProfile()
-        getMediaProfile()
+        //getMediaProfile()
         makeSubscription()
         //SVProgressHUD.dismiss()
     }
     
     func makeSubscription() {
+        logoutTapped.subscribe(onNext: { [weak self] _ in
+            guard let self =  self else { return }
+            self.logoutSubscription?(true)
+            })
+        .disposed(by: disposeBag)
+        
         cellTapped.subscribe(onNext: { [weak self] _ in
             guard let self =  self else { return }
             self.detailMediaSubscription?(self.mediaId.value!, self.accessToken, self.photoProfileImageUrl.value!)
@@ -100,6 +110,9 @@ class ProfileViewModel: ProfileViewModelable, ProfilePopulateable {
                         followersProfileCount: profileData?.followers_count,
                         followingProfileCount: profileData?.follows_count,
                         websiteProfile: profileData?.website)
+                    self.mediaProfileCollectionView.accept((profileData?.media.data)!)
+                    
+                    //disiapin untuk detail
                     self.photoProfileImageUrl.accept(profileData?.profile_picture_url)
                     //onComplete(.success(weatherData))
             }
@@ -127,45 +140,6 @@ class ProfileViewModel: ProfileViewModelable, ProfilePopulateable {
 //
 //            print(error?.localizedDescription as Any)
 //        })
-    }
-    
-    func getMediaProfile() {
-        apiServiceProvider.request(.getMediaProfile(instagramId: self.pathIdInstagram, accessToken: self.accessToken)) { (result) in
-            switch result {
-                case .failure(let error):
-                    print(error)
-                    //onComplete(.failure(.unknown))
-                    self.populateProfileViewEmpty()
-                case .success(let response):
-                    let mediaData = try? JSONDecoder().decode(MediaDataUrl.self, from: response.data)
-                    //print(mediaData!.data)
-                    self.mediaProfileCollectionView.accept(mediaData!.data)
-            }
-        }
-                
-                
-                //post
-        //        GraphRequest(graphPath: "17841401268594829/media", parameters: ["fields": "media_url"]).start(completionHandler: { (connection, result, error) -> Void in
-        //            if (error == nil){
-        //                let dict = result as! [String : AnyObject]
-        //                print(result!)
-        //
-        //                let data = dict as NSDictionary
-        //                //let mediaData = try? JSONDecoder().decode([MediaData].self, from: data)
-        //                //self.nameProfileLabel.accept()
-        //                //let picutreDic = dict as NSDictionary
-        //                let dataMedia = data.object(forKey: "data") as! NSArray
-        //                let id = dataMedia.object(at: 0) as! NSDictionary
-        //                let url = id.object(forKey: "media_url") as! String
-        //                print(url)
-        //                let a: [String] = [url]
-        //                //idIgString = id_ig.object(forKey: "id") as! String
-        //                //self.usernameLabel.text = idIgString
-        //                //self.mediaProfileCollectionView.accept(a)
-        //            }
-        //
-        //            print(error?.localizedDescription as Any)
-        //        })
     }
     
     //MARK: - Protocol Conformance

@@ -41,9 +41,7 @@
 		8D8370D724100BE4005DD2D3 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8370D624100BE4005DD2D3 /* AppCoordinator.swift */; };
 		8D8370D92410239D005DD2D3 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8370D82410239D005DD2D3 /* ProfileViewModel.swift */; };
 		8D8370DC24110FB5005DD2D3 /* UIImage + DataFromURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8370DB24110FB4005DD2D3 /* UIImage + DataFromURL.swift */; };
-		8D8370DE2411144E005DD2D3 /* TokenAccessService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8370DD2411144E005DD2D3 /* TokenAccessService.swift */; };
 		8D8370E02412A106005DD2D3 /* MediaDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8370DF2412A106005DD2D3 /* MediaDetailViewModel.swift */; };
-		8D8370E224150002005DD2D3 /* MediaProfileCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D8370E124150002005DD2D3 /* MediaProfileCellViewModel.swift */; };
 		C7D069AB565FE3BD27A7EE9D /* Pods_InstagramCloneYoshiasTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A9B29BD71F084EF38113FB2 /* Pods_InstagramCloneYoshiasTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -105,9 +103,7 @@
 		8D8370D624100BE4005DD2D3 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		8D8370D82410239D005DD2D3 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		8D8370DB24110FB4005DD2D3 /* UIImage + DataFromURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage + DataFromURL.swift"; sourceTree = "<group>"; };
-		8D8370DD2411144E005DD2D3 /* TokenAccessService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenAccessService.swift; sourceTree = "<group>"; };
 		8D8370DF2412A106005DD2D3 /* MediaDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaDetailViewModel.swift; sourceTree = "<group>"; };
-		8D8370E124150002005DD2D3 /* MediaProfileCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaProfileCellViewModel.swift; sourceTree = "<group>"; };
 		9DFD14E59F9492B1A13E2D44 /* Pods_InstagramCloneYoshias_InstagramCloneYoshiasUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InstagramCloneYoshias_InstagramCloneYoshiasUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4E406FDECE12E40700F0026 /* Pods-InstagramCloneYoshias-InstagramCloneYoshiasUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstagramCloneYoshias-InstagramCloneYoshiasUITests.debug.xcconfig"; path = "Target Support Files/Pods-InstagramCloneYoshias-InstagramCloneYoshiasUITests/Pods-InstagramCloneYoshias-InstagramCloneYoshiasUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		B7DB91419814D1F9B3CC4067 /* Pods-InstagramCloneYoshias-InstagramCloneYoshiasUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstagramCloneYoshias-InstagramCloneYoshiasUITests.release.xcconfig"; path = "Target Support Files/Pods-InstagramCloneYoshias-InstagramCloneYoshiasUITests/Pods-InstagramCloneYoshias-InstagramCloneYoshiasUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -243,7 +239,6 @@
 				8D8370C6240FD29A005DD2D3 /* LoginViewModel.swift */,
 				8D8370D82410239D005DD2D3 /* ProfileViewModel.swift */,
 				8D8370DF2412A106005DD2D3 /* MediaDetailViewModel.swift */,
-				8D8370E124150002005DD2D3 /* MediaProfileCellViewModel.swift */,
 			);
 			path = "View Model";
 			sourceTree = "<group>";
@@ -264,7 +259,6 @@
 		8D83709F240E673C005DD2D3 /* Network Service */ = {
 			isa = PBXGroup;
 			children = (
-				8D8370DD2411144E005DD2D3 /* TokenAccessService.swift */,
 				8D8370AE240ECD0A005DD2D3 /* GraphApiInstagramService.swift */,
 			);
 			path = "Network Service";
@@ -274,8 +268,8 @@
 			isa = PBXGroup;
 			children = (
 				8D8370C8240FDCE7005DD2D3 /* Coordinator.swift */,
-				8D8370D0240FE7D5005DD2D3 /* MainTabBarCoordinator.swift */,
 				8D8370D624100BE4005DD2D3 /* AppCoordinator.swift */,
+				8D8370D0240FE7D5005DD2D3 /* MainTabBarCoordinator.swift */,
 				8D8370CA240FDD3C005DD2D3 /* LoginCoordinator.swift */,
 				8D8370CC240FDEF9005DD2D3 /* ProfileCoordinator.swift */,
 				8D8370CE240FE6FC005DD2D3 /* MediaDetailCoordinator.swift */,
@@ -581,9 +575,7 @@
 				8D8370AF240ECD0A005DD2D3 /* GraphApiInstagramService.swift in Sources */,
 				8D8370A4240E74B5005DD2D3 /* ProfileViewController.swift in Sources */,
 				8D8370DC24110FB5005DD2D3 /* UIImage + DataFromURL.swift in Sources */,
-				8D8370DE2411144E005DD2D3 /* TokenAccessService.swift in Sources */,
 				8D8370CB240FDD3C005DD2D3 /* LoginCoordinator.swift in Sources */,
-				8D8370E224150002005DD2D3 /* MediaProfileCellViewModel.swift in Sources */,
 				8D8370C7240FD29A005DD2D3 /* LoginViewModel.swift in Sources */,
 				8D8370BD240FCA32005DD2D3 /* MediaCommentsData.swift in Sources */,
 				8D8370CF240FE6FC005DD2D3 /* MediaDetailCoordinator.swift in Sources */,
