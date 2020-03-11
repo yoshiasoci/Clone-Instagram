@@ -150,7 +150,9 @@ class ProfileViewModel: ProfileViewModelable, ProfilePopulateable {
     
     func populateProfileView(photoProfile: String?, nameProfile: String?, biographyProfile: String?, postProfileCount: Int?, followersProfileCount: Int?, followingProfileCount: Int?, websiteProfile: String?) {
         
-        setPhotoProfileImage(from: photoProfile)
+        //setPhotoProfileImage(from: photoProfile)
+        
+        setMedia(from: photoProfile, to: self.photoProfileImage)
         nameProfileLabel.accept(nameProfile)
         biographyProfileLabel.accept(biographyProfile)
         postProfileCountLabel.accept(postProfileCount == nil ? nil : "\(Int(postProfileCount!))")
@@ -162,16 +164,14 @@ class ProfileViewModel: ProfileViewModelable, ProfilePopulateable {
     
     //MARK: - Private Method
     
-    private func setPhotoProfileImage(from url: String?) {
+    private func setMedia(from url: String?, to imageDatas: BehaviorRelay<UIImage?>) {
         guard let imageURL = URL(string: url ?? "me") else { return }
-
-            // just not to cause a deadlock in UI!
         DispatchQueue.global().async {
             guard let imageData = try? Data(contentsOf: imageURL) else { return }
 
             let image = UIImage(data: imageData)
             DispatchQueue.main.async {
-                self.photoProfileImage.accept(image)
+                imageDatas.accept(image)
             }
         }
     }

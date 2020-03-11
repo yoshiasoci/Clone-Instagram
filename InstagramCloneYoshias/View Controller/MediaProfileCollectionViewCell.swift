@@ -15,16 +15,20 @@ class MediaProfileCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var feedPostProfileImage: UIImageView!
     
-    func setMediaImage(from url: String?) {
+    func populateCell(mediaUrl: String?) {
+        setMedia(from: mediaUrl, to: feedPostProfileImage)
+    }
+    
+    //MARK: - Provate Method
+    private func setMedia(from url: String?, to uiImageView: UIImageView?) {
         guard let imageURL = URL(string: url ?? "me") else { return }
 
-            // just not to cause a deadlock in UI!
         DispatchQueue.global().async {
             guard let imageData = try? Data(contentsOf: imageURL) else { return }
 
             let image = UIImage(data: imageData)
             DispatchQueue.main.async {
-                self.feedPostProfileImage.image = image
+                uiImageView?.image = image
             }
         }
     }

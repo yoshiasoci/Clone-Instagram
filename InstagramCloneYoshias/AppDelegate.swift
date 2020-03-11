@@ -8,10 +8,6 @@
 
 import UIKit
 
-import FacebookLogin
-import FBSDKLoginKit
-import FacebookCore
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
@@ -34,7 +30,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //            window?.rootViewController = LoginViewController(viewModel: LoginViewModel())
 //            //window?.makeKeyAndVisible()
 //        }
-        
         window = .init(frame: UIScreen.main.bounds)
         //appCoordinator = .init(window: window)
         window?.makeKeyAndVisible()

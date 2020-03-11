@@ -12,6 +12,8 @@ import Moya
 enum GraphApiInstagramService {
     case getProfile(instagramId: String, accessToken: String)
     case getDetailMediaProfile(mediaId: String, accessToken: String)
+    
+    //bypass
     case getDummyData
 }
 

@@ -36,7 +36,6 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.mediaProfileCollectionView.register(UINib(nibName: "MediaProfileCell", bundle: nil), forCellWithReuseIdentifier: "PostProfileCollectionViewCell")
-        
         self.addElement()
         self.bindData()
         self.imageProfileCircle()
@@ -111,7 +110,7 @@ class ProfileViewController: UIViewController {
         viewModelProfile.mediaProfileCollectionView
             .asObservable()
             .bind(to: mediaProfileCollectionView.rx.items(cellIdentifier: "PostProfileCollectionViewCell", cellType: MediaProfileCollectionViewCell.self)) { (row,data,cell) in
-                cell.setMediaImage(from: data?.media_url)
+                cell.populateCell(mediaUrl: data?.media_url)
         }.disposed(by: disposeBag)
         
         //binding cell tapable

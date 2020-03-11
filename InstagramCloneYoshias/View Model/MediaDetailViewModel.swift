@@ -89,8 +89,11 @@ class MediaDetailViewModel: MediaDetailViewModelable, MediaDetailPopulateable {
     
     func populateMediaDetailView(photoProfileMedia: String?, usernameMedia: String?, photoMedia: String?, likeCountMedia: Int?, commentCountMedia: Int?, captionMedia: String?) {
         
-        setPhotoProfileMediaImage(from: photoProfileMedia)
-        setPhotoMediaImage(from: photoMedia)
+//        setPhotoProfileMediaImage(from: photoProfileMedia)
+//        setPhotoMediaImage(from: photoMedia)
+        
+        setMedia(from: photoMedia, to: self.photoMediaImage)
+        setMedia(from: photoProfileMedia, to: self.photoProfileMediaImage)
         usernameMediaLabel.accept(usernameMedia)
         commentCountMediaLabel.accept(commentCountMedia == nil ? "0" : "💬 \(Int(commentCountMedia!))")
         likeCountMediaLabel.accept(likeCountMedia == nil ? "0" : "♥️ \(Int(likeCountMedia!))")
@@ -99,32 +102,45 @@ class MediaDetailViewModel: MediaDetailViewModelable, MediaDetailPopulateable {
     
     //MARK: - Private Method
     
-    private func setPhotoProfileMediaImage(from url: String?) {
+    private func setMedia(from url: String?, to imageDatas: BehaviorRelay<UIImage?>) {
         guard let imageURL = URL(string: url ?? "me") else { return }
-
-            // just not to cause a deadlock in UI!
         DispatchQueue.global().async {
             guard let imageData = try? Data(contentsOf: imageURL) else { return }
 
             let image = UIImage(data: imageData)
             DispatchQueue.main.async {
-                self.photoProfileMediaImage.accept(image)
+                imageDatas.accept(image)
             }
         }
     }
     
-    private func setPhotoMediaImage(from url: String?) {
-        guard let imageURL = URL(string: url ?? "me") else { return }
-
-            // just not to cause a deadlock in UI!
-        DispatchQueue.global().async {
-            guard let imageData = try? Data(contentsOf: imageURL) else { return }
-
-            let image = UIImage(data: imageData)
-            DispatchQueue.main.async {
-                self.photoMediaImage.accept(image)
-            }
-        }
-    }
+   
+//
+//    private func setPhotoProfileMediaImage(from url: String?) {
+//        guard let imageURL = URL(string: url ?? "me") else { return }
+//
+//        DispatchQueue.global().async {
+//            guard let imageData = try? Data(contentsOf: imageURL) else { return }
+//
+//            let image = UIImage(data: imageData)
+//            DispatchQueue.main.async {
+//                self.photoProfileMediaImage.accept(image)
+//            }
+//        }
+//    }
+//
+//    private func setPhotoMediaImage(from url: String?) {
+//        guard let imageURL = URL(string: url ?? "me") else { return }
+//
+//            // just not to cause a deadlock in UI!
+//        DispatchQueue.global().async {
+//            guard let imageData = try? Data(contentsOf: imageURL) else { return }
+//
+//            let image = UIImage(data: imageData)
+//            DispatchQueue.main.async {
+//                self.photoMediaImage.accept(image)
+//            }
+//        }
+//    }
     
 }

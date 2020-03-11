@@ -50,7 +50,7 @@ class LoginViewModel: LoginInstagramViewModelable {
     
     private func loginByFacebook() {
         let loginManager = LoginManager()
-        loginManager.logOut()
+//        loginManager.logOut()
         loginManager.logIn(
         permissions: [.publicProfile, .email, .userFriends, .pagesShowList, "instagram_basic"], viewController: LoginViewController(viewModel: self) ) { loginResult in
                 switch loginResult{

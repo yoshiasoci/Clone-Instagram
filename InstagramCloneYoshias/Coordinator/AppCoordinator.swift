@@ -28,8 +28,9 @@ class AppCoordinator: Coordinator {
     private func showLogin(_ window: UIWindow?) {
         loginCoordinator = .init()
         loginCoordinator?.succesLogin.subscribe { [weak self] _ in
-            self?.showTabbar(window, accessToken: AccessToken.current!.tokenString as String)
-            self?.loginCoordinator = nil
+            guard let self = self else { return }
+            self.showTabbar(window, accessToken: AccessToken.current!.tokenString as String)
+            self.loginCoordinator = nil
         }.disposed(by: disposeBag)
         
         loginCoordinator?.start(with: window)
@@ -38,13 +39,13 @@ class AppCoordinator: Coordinator {
     private func showTabbar(_ window: UIWindow?, accessToken: String?) {
         mainTabBarCoordinator = .init()
         mainTabBarCoordinator?.logout.subscribe { [weak self] _ in
+            guard let self = self else { return }
             //self?.showLogin(window)
-            self?.start(with: window)
-            self?.mainTabBarCoordinator = nil
+            self.start(with: window)
+            self.mainTabBarCoordinator = nil
         }.disposed(by: disposeBag)
         
         mainTabBarCoordinator?.start(with: window, accessToken: accessToken)
-        
     }
     
 }
